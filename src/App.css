@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'BigelowRules';
+  src: local('BigelowRules'), url('./assets/fonts/BigelowRules-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App {
+  text-align: center;
+  align-items: center;
+}
+
+.card-container {
+  background-color: #61dafb;
+  max-width: 30rem;
+  width: 80%;
+  padding: 0 auto;
+}
+
+.card-container:hover {
+  max-width: 100%;
+  transform: scale(1.05);
+}
+
+.app-title {
+  font-family: 'BigelowRules';
+  font-size: 40px;
+}
+
+.rolodex {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  margin-top: 25px;
+}
+
+@media (max-width: 1568px) {
+  .rolodex{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1185px) {
+  .rolodex{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 772px) {
+  .rolodex{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
