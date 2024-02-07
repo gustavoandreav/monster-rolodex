@@ -4,7 +4,7 @@ const Rolodex = (props) => {
   const { data } = props;
   return (
     <div className='rolodex'>
-      { data.map( element => <Card image={element.id} title={element.name} text={element.email} />) }
+      { data.map( element => <Card key={element.id} image={element.id} title={element.name} text={element.email} />) }
     </div>
   );
 }
