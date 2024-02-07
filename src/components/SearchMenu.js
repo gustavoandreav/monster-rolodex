@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
-
-class SearchMenu extends Component {
-  render () {
-    return (
-      <div>
-        <input
-          className={'search-box'}
-          type={'search'}
-          placeholder={'search monsters'}
-          value={this.props.name}
-          onChange={this.props.onNameChange}
-        />
-      </div>
-    );
-  }
+const SearchMenu = (props) => {
+  const { name, onNameChange } = props;
+  return (
+    <div>
+      <input
+        className={'search-box'}
+        type={'search'}
+        placeholder={'search monsters'}
+        value={name}
+        onChange={onNameChange}
+      />
+    </div>
+  );
 }
 
 export default SearchMenu;

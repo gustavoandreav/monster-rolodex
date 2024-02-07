@@ -2,52 +2,53 @@ import Rolodex from './components/Rolodex';
 import Title from './components/Title';
 import SearchMenu from './components/SearchMenu';
 import './App.css';
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 
-class App extends Component{
-  constructor(props) {
-      super(props);
-      this.state = {
-        nameFilter: '',
-        monsters: [],
-        filteredMonsters: [],
-      }
-  }
+const App = () => {
+  const title = 'Monster Rolodex';
+  const [nameFilter, setNameFilter] = useState('');
+  const [monsters, setMonsters] = useState([]);
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
-  componentDidMount() {
+  console.log('render');
+
+  useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
-    .then(data => this.setState({ monsters: data, filteredMonsters: data})); 
-    console.log('bring data');
-  }
+    .then(data => setMonsters(data));
 
-  changeNameFilter = (e) => {
-    const { monsters } = this.state;
-    let newFilter = e.target.value;
-    this.setState({nameFilter: newFilter});
-    if(newFilter === '')
-      this.setState({filteredMonsters:monsters});
+    console.log('effect fetch monsters');
+  }, []);
+
+  useEffect(() => {
+    if(nameFilter === '')
+      setFilteredMonsters(monsters);
     else{
-      let newMonsters = monsters.filter( monster => monster.name.toLowerCase().includes(newFilter.toLowerCase()));
-      this.setState({filteredMonsters:newMonsters});
+      let newMonsters = monsters.filter( monster => monster.name.toLowerCase().includes(nameFilter.toLowerCase()));
+      setFilteredMonsters(newMonsters);
     }
+    console.log('effect change monsters');
+  }, [monsters, nameFilter]);
+
+  const changeNameFilter = (e) => {
+    let newFilter = e.target.value;
+    setNameFilter(newFilter);
   }
 
-  render() {
-    const { nameFilter, filteredMonsters } = this.state;
-    return (
-      <div className="App">
-        <Title />
-        <SearchMenu
-          name={nameFilter}
-          onNameChange={this.changeNameFilter}
-        />
-        <Rolodex
-          data={filteredMonsters}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Title
+        title={title}
+      />
+      <SearchMenu
+        name={nameFilter}
+        onNameChange={changeNameFilter}
+      />
+      <Rolodex
+        data={filteredMonsters}
+      />
+    </div>
+  );
 }
 
 export default App;
